@@ -106,7 +106,6 @@ Set::Set(const Set& rhs) : Set() {
 
 // Assignment operator: use copy-and-swap idiom
 Set& Set::operator=(Set rhs) {
-    // ADD CODE
 
     std::swap(head, rhs.head);
     std::swap(counter, rhs.counter); // Swap the counters
@@ -283,6 +282,9 @@ std::ostream& operator<<(std::ostream& os, const Set& rhs) {
 }
 
 /********** Private member functions ************/
+
+//fixa ny insert som inte går igenom allt
+
 // Insert a new node with value x
 void Set::insert(int x) {
 	Node* ptr1 = head->next; // start at the dummy node
