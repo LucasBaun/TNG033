@@ -18,15 +18,33 @@ public:
 
     // ADD OTHER MEMBER FUNCTIONS ->
 
-	// Function call operator (pure virtual)
+    // Function call operator (pure virtual)
     //Enables the object to act like a function f(x)
-	virtual double operator()(double x) const = 0;
+    virtual double operator()(double x) const = 0;
 
-    // Type conversion to std::string
+	// Type conversion to std::string (pure virtual)
+    // Converts the object to a human-readable string
+    // Example a polynomial becomes "3.40 + 5.00 * X^2"
+    virtual explicit operator std::string() const = 0;
 
-	virtual explicit operator std::string() const = 0;
+    // Check if a value is a root
+    // example if (e == 5.0)
+	bool isRoot(double x) const {
+		return std::abs((*this)(x)) < Epsilon;
+	}
 
-	// Overload operator<< for output
+    // operator<< to string
+    // uses operator std::string internally
+	// static_cast to convert pointer from base class to derived class
+	// Example: std::cout << p1 << std::endl;
+	friend std::ostream& operator<<(std::ostream& os, const Expression& e) {
+        os << static_cast<std::string>(e);
+		return os;
+	}
+
+	//Clone expression (pure virtual) any instance of expression
+	//Allows copying an object without knowing its type
+	virtual Expression* clone() const = 0;
 
     // Return number of existing instances of class Expression
     // Used only for debug purposes
