@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include "expression.h"
 
 class Logarithm : public Expression {
@@ -32,8 +33,14 @@ public:
 	operator std::string() const override;
 
 	Logarithm* clone() const override;
+
+	Logarithm(const Logarithm& L);
 	
 	Logarithm(Expression& Express, double fC, double sC, int logBase);
+
+	int& set_base(int x);
+
+	Logarithm& operator=(const Logarithm& L);
 
 	//------------------------------
 

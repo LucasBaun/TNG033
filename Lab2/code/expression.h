@@ -16,6 +16,7 @@ public:
         --count_expressions;
     }
 
+
     // ADD OTHER MEMBER FUNCTIONS ->
 
     // Function call operator (pure virtual)
@@ -51,6 +52,9 @@ public:
     static std::size_t get_count_expressions();
 
 protected:
+
+    Expression& operator=(const Expression&) = delete;
+
     // Default constructor
     Expression() {
         ++count_expressions;

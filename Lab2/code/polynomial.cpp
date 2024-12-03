@@ -20,12 +20,12 @@ Polynomial::Polynomial(double c) : coefficients{ c } {}
 //Polynomial::Polynomial(const Polynomial& p) : coefficients{ p.coefficients } {}
 
 // Assignment operator behövs inte har default
-//Polynomial& Polynomial::operator=(const Polynomial& p) {
-//	if (this != &p) {
-//		coefficients = p.coefficients;
-//	}
-//	return *this;
-//}
+Polynomial& Polynomial::operator=(const Polynomial& p) {
+	if (this != &p) {
+		coefficients = p.coefficients;
+	}
+	return *this;
+}
 
 // Evaluate the polynomial at x
 double Polynomial::operator()(double x) const {
@@ -73,9 +73,9 @@ Polynomial::operator std::string() const {
 
 	for (size_t i = 0; i < coefficients.size(); ++i) {
 		double coeff = coefficients[i];
-		if (coeff != 0.0 || i == 0) {
+		
 			if (!firstTerm) {
-				oss << (coeff > 0 ? " + " : " - ");
+				oss << (coeff >= 0 ? " + " : " - ");
 			}
 			else if (coeff < 0) {
 				oss << "-";
@@ -91,7 +91,7 @@ Polynomial::operator std::string() const {
 			}
 
 			firstTerm = false;
-		}
+		
 	}
 
 	if (firstTerm) {

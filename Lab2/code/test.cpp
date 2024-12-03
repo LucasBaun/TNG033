@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <format>
 
 #include "polynomial.h"
 #include "logarithm.h"
@@ -294,162 +295,161 @@ int main() {
         Polynomial p2{v2};  // create a polynomial of degree 2
 
         Logarithm l2{p2, 2, -3, 10};
-        std::cout << l2 << "\n";
 
         p2[1] = -999.0;  // should not modify  l2
-
-		std::cout << l2 << "\n";
 
 
         // Test
         assert(Expression::get_count_expressions() == 5);
         assert(std::string{l2} == std::string{"2.00 - 3.00 * Log_10( -1.00 + 0.00 * X^1 + 1.00 * X^2 )"});
 
-        //Logarithm l3{l1, 1, 2, 10};
+        Logarithm l3{l1, 1, 2, 10};
 
-        //assert(Expression::get_count_expressions() == 8);
+		std::cout << l3 << "\n";
 
-        //l1.set_base(3);  // should not modify l3
+        assert(Expression::get_count_expressions() == 8);
 
-        //// Test
-        //assert(std::string{l3} ==
-        //       std::string{"1.00 + 2.00 * Log_10( 0.00 + 1.00 * Log_2( 0.00 + 1.00 * X^1 ) )"});
+        l1.set_base(3);  // should not modify l3
+
+        // Test
+        assert(std::string{l3} ==
+               std::string{"1.00 + 2.00 * Log_10( 0.00 + 1.00 * Log_2( 0.00 + 1.00 * X^1 ) )"});
     }
 
-    //assert(Expression::get_count_expressions() == 0);
+    assert(Expression::get_count_expressions() == 0);
 
     ///*****************************************************
     // * TEST PHASE 11                                      *
     // * Logarithm: copy constructor                        *
     // ******************************************************/
-    //std::cout << "\nTEST PHASE 11: Logarithm - copy constructor\n";
+    std::cout << "\nTEST PHASE 11: Logarithm - copy constructor\n";
 
-    //{
-    //    Logarithm l1;  // default constructor
-    //    assert(Expression::get_count_expressions() == 2);
+    {
+        Logarithm l1;  // default constructor
+        assert(Expression::get_count_expressions() == 2);
 
-    //    Logarithm* ptr_l2 = new Logarithm{l1, 1, 2, 10};
-    //    assert(Expression::get_count_expressions() == 5);
+        Logarithm* ptr_l2 = new Logarithm{l1, 1, 2, 10};
+        assert(Expression::get_count_expressions() == 5);
 
-    //    Logarithm l3{*ptr_l2};  // copy constructor
-    //    assert(Expression::get_count_expressions() == 8);
+        Logarithm l3{*ptr_l2};  // copy constructor
+        assert(Expression::get_count_expressions() == 8);
 
-    //    delete ptr_l2;  // should not affect l3
-    //    ptr_l2 = nullptr;
+        delete ptr_l2;  // should not affect l3
+        ptr_l2 = nullptr;
 
-    //    // Test
-    //    assert(std::string{l3} ==
-    //           std::string("1.00 + 2.00 * Log_10( 0.00 + 1.00 * Log_2( 0.00 + 1.00 * X^1 ) )"));
-    //}
+        // Test
+        assert(std::string{l3} ==
+               std::string("1.00 + 2.00 * Log_10( 0.00 + 1.00 * Log_2( 0.00 + 1.00 * X^1 ) )"));
+    }
 
-    //assert(Expression::get_count_expressions() == 0);
+    assert(Expression::get_count_expressions() == 0);
 
     ///*****************************************************
     // * TEST PHASE 12                                      *
     // * Logarithm: isRoot                                  *
     // ******************************************************/
-    //std::cout << "\nTEST PHASE 12: isRoot\n";
+    std::cout << "\nTEST PHASE 12: isRoot\n";
 
-    //{
-    //    const Logarithm l1;
-    //    assert(Expression::get_count_expressions() == 2);
-    //    assert(l1.isRoot(1));
+    {
+       const Logarithm l1;
+       assert(Expression::get_count_expressions() == 2);
+       assert(l1.isRoot(1));
 
-    //    std::vector<double> v2{-1, 0, 1};
-    //    Polynomial p2{v2};  // create a polynomial of degree 2
+       std::vector<double> v2{-1, 0, 1};
+       Polynomial p2{v2};  // create a polynomial of degree 2
 
-    //    Logarithm l2{p2, 2, 3, 10};
-    //    assert(Expression::get_count_expressions() == 5);
-    //    assert(l2.isRoot(2) == false);
-    //}
+       Logarithm l2{p2, 2, 3, 10};
+       assert(Expression::get_count_expressions() == 5);
+       assert(l2.isRoot(2) == false);
+    }
 
-    //assert(Expression::get_count_expressions() == 0);
+    assert(Expression::get_count_expressions() == 0);
 
     ///*****************************************************
     // * TEST PHASE 13                                       *
     // * Logarithm: operator()                              *
     // ******************************************************/
-    //std::cout << "\nTEST PHASE 13: Logarithm::operator()\n";
+    std::cout << "\nTEST PHASE 13: Logarithm::operator()\n";
 
-    //{
-    //    const Logarithm l1;
-    //    assert(Expression::get_count_expressions() == 2);
-    //    assert(l1(1) == 0.0);
+    {
+        const Logarithm l1;
+        assert(Expression::get_count_expressions() == 2);
+        assert(l1(1) == 0.0);
 
-    //    std::vector<double> v2{-1, 0, 1};
-    //    Polynomial p2{v2};  // create a polynomial of degree 2
+        std::vector<double> v2{-1, 0, 1};
+        Polynomial p2{v2};  // create a polynomial of degree 2
 
-    //    Logarithm l2{p2, 2, 3, 10};
-    //    assert(Expression::get_count_expressions() == 5);
-    //    assert(l2(2) >= 3.4313);
-    //}
+        Logarithm l2{p2, 2, 3, 10};
+        assert(Expression::get_count_expressions() == 5);
+        assert(l2(2) >= 3.4313);
+    }
 
-    //assert(Expression::get_count_expressions() == 0);
+    assert(Expression::get_count_expressions() == 0);
 
     ///*****************************************************
     // * TEST PHASE 14                                      *
     // * Logarithm: assignment operator                     *
     // ******************************************************/
-    //std::cout << "\nTEST PHASE 14: Logarithm - assignment operator\n";
+    std::cout << "\nTEST PHASE 14: Logarithm - assignment operator\n";
 
-    //{
-    //    Logarithm l0;
-    //    assert(Expression::get_count_expressions() == 2);
+    {
+        Logarithm l0;
+        assert(Expression::get_count_expressions() == 2);
 
-    //    std::vector<double> v1{-1, 0, 1};
-    //    Polynomial p1{v1};  // create a polynomial of degree 2
+        std::vector<double> v1{-1, 0, 1};
+        Polynomial p1{v1};  // create a polynomial of degree 2
 
-    //    Logarithm* ptr_l1 = new Logarithm{p1, 1, 1, 2};
-    //    assert(Expression::get_count_expressions() == 5);
+        Logarithm* ptr_l1 = new Logarithm{p1, 1, 1, 2};
+        assert(Expression::get_count_expressions() == 5);
 
-    //    l0 = *ptr_l1;
-    //    assert(Expression::get_count_expressions() == 5);
+        l0 = *ptr_l1;
+        assert(Expression::get_count_expressions() == 5);
 
-    //    delete ptr_l1;  // shoudld not affect l0
-    //    ptr_l1 = nullptr;
-    //    assert(Expression::get_count_expressions() == 3);
+        delete ptr_l1;  // shoudld not affect l0
+        ptr_l1 = nullptr;
+        assert(Expression::get_count_expressions() == 3);
 
-    //    // Test
-    //    assert(std::string{l0} == std::string("1.00 + 1.00 * Log_2( -1.00 + 0.00 * X^1 + 1.00 * X^2 )"));
-    //}
+        // Test
+        assert(std::string{l0} == std::string("1.00 + 1.00 * Log_2( -1.00 + 0.00 * X^1 + 1.00 * X^2 )"));
+    }
 
-    //assert(Expression::get_count_expressions() == 0);
+    assert(Expression::get_count_expressions() == 0);
 
     ///*****************************************************
     // * TEST PHASE 15                                      *
     // * Expressions: polymorphism                          *
     // ******************************************************/
-    //std::cout << "\nTEST PHASE 15:  Expressions - polymorphism\n";
+    std::cout << "\nTEST PHASE 15:  Expressions - polymorphism\n";
 
-    //{
-    //    std::vector<Expression*> V{new Logarithm{}, new Polynomial{std::vector<double>{-1, 0, 1}}};
-    //    assert(Expression::get_count_expressions() == 3);
+    {
+        std::vector<Expression*> V{new Logarithm{}, new Polynomial{std::vector<double>{-1, 0, 1}}};
+        assert(Expression::get_count_expressions() == 3);
 
-    //    for (auto e : V) {
-    //        assert(e->isRoot(1));
-    //        delete e;
-    //    }
-    //}
+        for (auto e : V) {
+            assert(e->isRoot(1));
+            delete e;
+        }
+    }
 
-    //assert(Expression::get_count_expressions() == 0);
+    assert(Expression::get_count_expressions() == 0);
 
     ///*****************************************************
     // * TEST PHASE 16                                      *
     // * Expression: assignment                             *
     // ******************************************************/
-    //// std::cout << "\nTEST PHASE 16:  Expression::operator=\n";
+     std::cout << "\nTEST PHASE 16:  Expression::operator=\n";
 
     //{
-    //    /*
+    //    
     //    std::vector<double> v1{-1, 0, 1};
     //    Expression* e1 = new Polynomial{v1};
 
     //    Expression* e2 = new Logarithm{};
 
     //    *e1 = *e2; //<-- should not compile!!
-    //    */
+    //    
     //}
 
-    //std::cout << "\nSuccess!!\n";
-    //
+    std::cout << "\nSuccess!!\n";
+    
 }

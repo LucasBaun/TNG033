@@ -16,7 +16,9 @@ private:
 	// Represent a polynomial of degree, first element konstant, second first degree etc.
 	std::vector<double> coefficients;
 public:
-	Polynomial() = default;
+	Polynomial();
+
+
 	//deconstructor
 	//dont need to implement it because vector
 	~Polynomial() = default;
@@ -32,10 +34,10 @@ public:
 	Polynomial(const Polynomial& p) = default;
 
 	// Assignment operator
-	Polynomial& operator=(const Polynomial& p) = default;
+	Polynomial& operator=(const Polynomial& p);
 
 	// Evaluate the polynomial at x
-	double operator()(double x) const;
+	double operator()(double x) const override;
 
 
 	// add and assign operator (operator+=)
